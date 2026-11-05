@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ものがたりで国語｜江原予備校</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f1e8;color:#2b2b2b;font-family:"Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;font-size:18px;line-height:1.7}
+#app{max-width:820px;margin:0 auto;padding:12px 14px 60px}
+.hero{background:linear-gradient(135deg,#1f6f78,#2f8f83);color:#fff;border-radius:18px;padding:22px 20px;margin-bottom:16px}
+.hero h1{margin:0;font-size:30px}.hero .sub{margin:2px 0 10px;font-size:18px;opacity:.95}
+.hero .lead{font-size:16px;margin:8px 0;background:rgba(255,255,255,.14);padding:10px 12px;border-radius:12px}
+.total{font-size:18px}
+.shelf{display:grid;gap:14px}
+.book{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.bh{display:flex;gap:12px;align-items:center}.bi{font-size:40px}
+.bt{font-size:22px;font-weight:700}.ba{font-size:14px;color:#666}.bb{margin:6px 0 10px;font-size:16px}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pbtn{border:2px solid #2f8f83;background:#f0faf8;border-radius:12px;padding:8px 6px;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:2px;align-items:center;min-height:100px}
+.pbtn.done{background:#fff8dc;border-color:#e0a800}.pbtn.lock{border-color:#ccc;background:#eee;color:#999;cursor:not-allowed}
+.pn{font-size:13px;color:#555}.pt{font-weight:700;font-size:15px;line-height:1.3;text-align:center}.pl{font-size:11px;color:#777}.ps{font-size:15px;color:#c78a00;font-weight:700}
+.rd{margin-top:10px;border:0;background:none;color:#1f6f78;text-decoration:underline;font:inherit;cursor:pointer}
+.foot{font-size:13px;color:#777;text-align:center;margin-top:20px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:8px}.ttl{font-weight:700;font-size:19px}.ttl small{font-weight:400;color:#555;font-size:14px;margin-left:6px}
+.back{border:1px solid #999;background:#fff;border-radius:10px;padding:6px 10px;font:inherit;font-size:14px;cursor:pointer}
+.steps{display:flex;gap:6px;margin-bottom:8px}.st{flex:1;text-align:center;font-size:13px;padding:6px 2px;border-radius:10px;background:#ddd;color:#666}
+.st b{display:block;font-size:16px}.st.cur{background:#2f8f83;color:#fff}.st.done{background:#a9d8cf;color:#14564e}
+.tip{font-size:14px;background:#fff7d6;border-radius:10px;padding:6px 10px;margin-bottom:10px}
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card.center{text-align:center}
+h2{font-size:19px;margin:0 0 6px;color:#1f6f78}h3{color:#1f6f78;margin:14px 0 4px}
+.inst{margin:4px 0 10px;font-size:16px}.hint{color:#8a5a00;font-size:15px}
+.passage{background:#fffdf6;border-left:6px solid #e0b84c;border-radius:8px;padding:12px 14px;font-size:20px;line-height:2.1;margin:8px 0 12px}
+.gl{border-bottom:2px dotted #d9822b;background:#fff2d9;cursor:pointer;border-radius:3px}
+#pop{display:none;position:absolute;z-index:50;background:#222;color:#fff;border-radius:12px;padding:10px 14px;max-width:300px;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+#pop .py{font-size:14px;color:#ffd666}#pop .pw{font-size:22px;font-weight:700}#pop .pm{font-size:15px;margin-top:4px;line-height:1.5}
+.tok{font:inherit;background:#e8f1ff;border:0;border-bottom:3px solid #3a78d8;border-radius:6px;padding:0 3px;cursor:pointer;color:inherit}
+.tok.sel{background:#ffe08a;border-color:#e09c00}.tok.ok{background:#bfeccd;border-color:#27a05a}.tok.bad{background:#ffd0d0;border-color:#d44;text-decoration:line-through}
+mark{background:#ffe08a;padding:0 4px;border-radius:5px;font-weight:700}
+.msg{margin:8px 0;font-size:16px}.msg.warn{background:#fff0f0;border-radius:10px;padding:8px 12px}.msg.good{background:#eafaf0;border-radius:10px;padding:8px 12px}
+.note{margin-top:4px;font-size:15px;color:#555}
+.btn{display:inline-block;border:0;background:#2f8f83;color:#fff;font:inherit;font-weight:700;border-radius:14px;padding:12px 22px;cursor:pointer;margin:6px 4px;min-height:48px}
+.btn.big{font-size:20px;padding:14px 30px}.btn.sub{background:#fff;color:#1f6f78;border:2px solid #2f8f83}
+#nxw{text-align:center;margin-top:12px}.okmsg{font-size:22px;font-weight:700;color:#d6891a}
+.q{font-weight:700;font-size:19px;margin:10px 0}
+.opt{margin:8px 0}.orow{display:flex;gap:6px;align-items:stretch}
+.optb{flex:1;text-align:left;font:inherit;border:2px solid #9bb;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;display:flex;gap:8px;min-height:52px}
+.num{font-weight:700;color:#1f6f78}.x{border:2px solid #d99;background:#fff;color:#c33;border-radius:10px;font:inherit;width:48px;cursor:pointer}
+.opt.struck .optb{text-decoration:line-through;color:#aaa;background:#f3f3f3}
+.opt.right .optb{background:#d9f7e4;border-color:#27a05a}.opt.gone .optb{background:#ffe3e3;border-color:#d66;color:#888}.opt.dim .optb{opacity:.65}
+.why{font-size:15px;margin:4px 6px 0;color:#444}
+.ev{margin-top:12px;background:#eaf3ff;border-radius:10px;padding:10px 12px;font-size:16px}
+.summary{background:#eef9f6;border-radius:10px;padding:10px 12px;font-size:19px;line-height:2;margin-bottom:8px}.sl{font-size:13px;color:#1f6f78;font-weight:700}
+.blank{display:inline-block;min-width:3.2em;border-bottom:3px solid #2f8f83;background:#e6f5f2;text-align:center;border-radius:4px;padding:0 4px;color:#1f6f78}
+.blank.filled{background:#bfeccd;color:#0b5c2d;font-weight:700}
+.row{margin:10px 0}.rl{font-weight:700;color:#1f6f78;font-size:16px}.ropts{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.rb{font:inherit;border:2px solid #9bb;background:#fff;border-radius:12px;padding:8px 14px;cursor:pointer;min-height:46px}
+.rb.right{background:#d9f7e4;border-color:#27a05a}.rb.gone{background:#ffe3e3;border-color:#d66;color:#999}.rb.dim{opacity:.55}
+.big-stars{font-size:54px;color:#e0a800;letter-spacing:6px}.score{font-size:20px;font-weight:700}
+.teaser{background:#fff7d6;border-radius:12px;padding:10px 14px;margin:12px 0}
+.shake{animation:sh .4s}@keyframes sh{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.petal{position:fixed;top:-30px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media(max-width:560px){.parts{grid-template-columns:1fr}.pbtn{flex-direction:row;min-height:0;justify-content:space-between;gap:6px}.passage{font-size:18px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// 物語データ：名作（著作権切れ）をやさしく要約したもの
+// 記法：[[指示語]]  ((まぎらわしい言葉|説明))  {{A:接続詞}}  <<語|よみ|意味>>（タップで読みと意味を表示）
+const DO = '「ど」ではじまることばは、たずねたり、まとめて言ったりする言葉で、何かを指しているわけではありません。そのため、この練習では指示語にふくめません。';
+
+const STORIES = [
+{
+  icon: '🕷️', title: '蜘蛛の糸', author: '芥川龍之介', genre: 'ふしぎ・教訓',
+  blurb: '地獄でくるしむ大どろぼうに、お釈迦様が一本の糸を下ろします。',
+  parts: [
+  { t: 'ひとすじの光', lv: 1,
+    tx: `むかし、((カンダタ))という大どろぼうがいました。人の物をぬすみ、家に火をつけるなど、<<悪事|あくじ|悪いおこない>>ばかりしていた男です。カンダタは死んだあと、<<地獄|じごく|悪いことをした人が、死んだあとに行ってくるしむといわれる世界>>に落とされました。[[そこ]]は、暗くて、さむくて、{{A:しかも}}((針の山))がつづく、おそろしい所でした。カンダタは、毎日くるしみ続けていました。{{B:ところが}}、ある日、ふと上を見ると、<<はるか|はるか|とても遠いようす>>上のほうから、一本の細い銀色の糸が、するするとおりてきたのです。`,
+    ref: { i: 0, o: ['地獄', 'カンダタの家', '大どろぼうの町', '空の上の世界'], w: '直前の文に「地獄に落とされました」とあります。「そこ」は地獄を指しています。' },
+    gist: { tpl: '大どろぼうのカンダタは、死んだあと[1]に落とされ、くるしんでいた。ある日、上から[2]がおりてきた。', b: [{ o: ['地獄', '天国', 'ふるさと'], w: '本文の三つ目の文を見よう。' }, { o: ['細い銀色の糸', '太いなわ', 'はしご'], w: '最後の文に書かれています。' }] },
+    conj: [{ o: ['しかも', 'しかし', 'なぜなら', 'または'], w: '「暗い・さむい」に、さらに「針の山」とつけ加えています。つけ加える「しかも」。' }, { o: ['ところが', 'だから', 'つまり', 'たとえば'], w: 'くるしみ続けていたのに、とつぜん糸が下りてきた。思いがけないことをつなぐ「ところが」。' }],
+    q: { s: '「カンダタは、毎日くるしみ続けていました」とありますが、カンダタが地獄でくるしんでいる理由として最も適切なものはどれですか。', ev: '人の物をぬすみ、家に火をつけるなど、悪事ばかりしていた男です。',
+      o: [['生きていたとき、ぬすみや放火などの悪事を重ねたから。', '本文の最初に悪事ばかりしていたとあり、そのむくいとして地獄に落とされています。'], ['お釈迦様にきらわれて、いじわるされたから。', 'お釈迦様は、まだ登場していません。'], ['道に迷って、地獄に来てしまっただけだから。', '道に迷ったという記述はありません。'], ['ほかの人の身代わりになったから。', '身代わりの話は出てきません。']] },
+    tz: 'たった一本の細い糸。それを下ろしたのは、いったいだれでしょう。' },
+  { t: 'お釈迦様の思い出', lv: 2,
+    tx: `[[その]]ころ、<<極楽|ごくらく|苦しみのない、とても美しい平和な世界>>では、((お釈迦様))が池のふちを散歩していました。水の底をのぞくと、((地獄))でくるしむカンダタの姿が見えました。お釈迦様は、カンダタがたった一度だけ、よいことをしたのを思い出しました。[[それ]]は、森で小さな<<蜘蛛|くも|八本の足を持ち、糸で巣をつくる生き物>>を見つけたとき、ふみつぶさずに助けてやったことです。{{A:そこで}}、お釈迦様は、一本の蜘蛛の糸を、地獄へそっと下ろしてやりました。糸を見つけたカンダタは、よろこびました。「[[これ]]につかまって上れば、地獄からぬけ出せるぞ。」{{B:そして}}、カンダタは、糸をにぎって、<<必死|ひっし|死にものぐるいで、全力でがんばること>>にのぼりはじめたのです。`,
+    ref: { i: 1, o: ['カンダタがたった一度だけしたよいこと', 'お釈迦様が池を散歩していたこと', 'カンダタが地獄に落ちたこと', '水の底をのぞいたこと'], w: '直前の文の「たった一度だけ、よいことをした」を指しています。あとの「蜘蛛を助けてやったこと」が、そのくわしい説明です。' },
+    gist: { tpl: 'お釈迦様は、カンダタが一度だけ[1]を助けたことを思い出し、地獄へ[2]を下ろした。', b: [{ o: ['蜘蛛', '犬', '小鳥'], w: '「森で小さな蜘蛛を見つけたとき」とあります。' }, { o: ['蜘蛛の糸', 'はしご', '手紙'], w: '「一本の蜘蛛の糸を、地獄へそっと下ろして」とあります。' }] },
+    conj: [{ o: ['そこで', 'しかし', 'なぜなら', 'または'], w: 'よいことを思い出した結果、糸を下ろすことにした。前のことを受けて行動をつなぐ「そこで」。' }, { o: ['そして', 'しかし', 'なぜなら', 'または'], w: '糸を見つけてよろこび、そのあと上りはじめた。つづけて起こったことをつなぐ「そして」。' }],
+    q: { s: 'お釈迦様がカンダタに糸を下ろしてやった理由として最も適切なものはどれですか。', ev: 'カンダタがたった一度だけ、よいことをした…ふみつぶさずに助けてやったことです。',
+      o: [['カンダタが、小さな蜘蛛を助けたことがあったから。', 'たった一つのよいことを思い出し、すくいの手をさしのべています。'], ['カンダタが大金をわたしたから。', 'お金の話は出てきません。'], ['カンダタがお釈迦様にたのんだから。', 'カンダタはたのんでいません。糸を見つけたのはそのあとです。'], ['地獄がこわれてしまったから。', '地獄がこわれたという記述はありません。']] },
+    tz: '糸をのぼりはじめたカンダタ。ところが、ふと下を見ると…？' },
+  { t: 'ぷつりと切れた糸', lv: 3,
+    tx: `カンダタは、一生けんめい糸をのぼりました。ずいぶん上まで来たとき、ふと下を見ると、((地獄の者たち))が、数えきれないほど糸にすがって、のぼってくるではありませんか。カンダタはあわてました。「[[この]]細い糸が、[[あれ]]だけの人数にたえられるはずがない。」{{A:そこで}}、カンダタは大声でさけびました。「こら、<<罪人|ざいにん|悪いことをした人>>ども。[[この]]糸は、おれのものだぞ。おりろ、おりろ。」{{B:すると}}、[[その]]<<瞬間|しゅんかん|ほんの短い時間>>、糸はカンダタの上でぷつりと切れ、カンダタは、もとの地獄へ落ちていきました。お釈迦様は、池のふちから、<<一部始終|いちぶしじゅう|はじめから終わりまで、すべて>>を悲しそうなお顔で見ていました。`,
+    ref: { i: 1, o: ['糸をのぼってくる、数えきれないほどの地獄の者たち', 'カンダタ自身', 'お釈迦様', '地獄の針の山'], w: '「あれだけの人数」は、すぐ前の文の「糸にすがってのぼってくる地獄の者たち」を指しています。' },
+    gist: { tpl: 'カンダタは、糸にすがる者たちに[1]とさけんだため、糸が[2]。', b: [{ o: ['「おりろ」', '「いっしょに上ろう」', '「ありがとう」'], w: '「おりろ、おりろ。」とさけんでいます。' }, { o: ['切れてしまった', '太くなった', 'ゆれただけだった'], w: '「ぷつりと切れ」とあります。' }] },
+    conj: [{ o: ['そこで', 'しかし', 'なぜなら', 'または'], w: '糸がたえられないと思った結果、さけんだ。前のことを受けて行動をつなぐ「そこで」。' }, { o: ['すると', 'しかし', 'または', 'たとえば'], w: 'さけんだ直後に糸が切れた。あとに起こったことをつなぐ「すると」。' }],
+    q: { s: 'お釈迦様が、悲しそうなお顔で見ていた理由として最も適切なものはどれですか。', ev: '「この糸は、おれのものだぞ。おりろ、おりろ。」…糸はカンダタの上でぷつりと切れ',
+      o: [['カンダタが自分だけ助かろうとして、ふたたび地獄に落ちたから。', '他の人を追いはらおうとした心が、糸を切る結果になりました。それを見て悲しんでいます。'], ['カンダタが糸を上りきって、極楽に来たから。', '糸は切れて、カンダタは落ちています。'], ['地獄の者たちが全員助かったから。', '助かったとは書かれていません。'], ['お釈迦様が、糸を切るつもりで下ろしたから。', 'お釈迦様は、助けようとして糸を下ろしています。']] },
+    tz: '『蜘蛛の糸』はここまで。自分だけ助かろうとする心が、糸を切ってしまいました。' }
+  ]
+},
+{
+  icon: '🏃', title: '走れメロス', author: '太宰治', genre: '友情・勇気',
+  blurb: '王との約束を守るため、友のために走りつづける青年のお話。',
+  parts: [
+  { t: '激怒したメロス', lv: 1,
+    tx: `メロスは、村で羊の世話をしている、正直で正義感の強い青年です。妹の結婚式の買い物をするため、メロスはシラクスの町へやってきました。{{A:ところが}}、町はしんと静まり返り、人々に元気がありません。「どうしたのですか。」とたずねると、((老人))は小さな声で答えました。「王様が、人を信じられなくなって、次々と人をころしているのです。」メロスは<<激怒|げきど|ひどくおこること>>しました。「[[そんな]]<<邪智暴虐|じゃちぼうぎゃく|ずるがしこくて、らんぼうで、人にひどいことをすること>>の王は、ゆるせない。」{{B:そして}}、メロスは短刀を持ったまま、((王の城))へ入っていきました。`,
+    ref: { i: 0, o: ['王様が人を信じられず、次々と人をころしていること', '町が静まり返っていること', 'メロスが買い物に来たこと', '妹の結婚式があること'], w: '「そんな邪智暴虐の王」は、老人が話した「人を信じられなくなり、次々と人をころしている」王のおこないを受けています。' },
+    gist: { tpl: 'メロスは町で、王様が[1]いると聞いて、[2]した。', b: [{ o: ['人々をころして', '人々に食べ物を配って', '町を守って'], w: '老人の話を見直そう。' }, { o: ['激怒', '安心', '感動'], w: '「ゆるせない」と言っています。' }] },
+    conj: [{ o: ['ところが', 'だから', 'つまり', 'たとえば'], w: '買い物に来た（ふつうの町を想像）のに、町は静まり返っていた。思いと反対の様子をつなぐ「ところが」。' }, { o: ['そして', 'しかし', 'なぜなら', 'または'], w: 'ゆるせないと思い、そのあとに城へ入った。つづく行動をつなぐ「そして」。' }],
+    q: { s: '「メロスは激怒しました」とありますが、メロスがおこった理由として最も適切なものはどれですか。', ev: '王様が、人を信じられなくなって、次々と人をころしているのです。',
+      o: [['王様が、人を信じられず、罪のない人々をころしていると知ったから。', '老人の話を聞いて、正義感の強いメロスがゆるせないと感じました。'], ['王様に結婚式をじゃまされたから。', '結婚式をじゃまされた話はありません。'], ['買い物のお金をぬすまれたから。', 'お金をぬすまれた話はありません。'], ['町の人にばかにされたから。', 'ばかにされた場面はありません。']] },
+    tz: '短刀を持って城へ入ったメロス。すぐに兵士につかまり、王の前に…。' },
+  { t: '三日間の約束', lv: 2,
+    tx: `メロスは、すぐに兵士につかまり、王の前に引き出されました。「人殺しの王から、[[この]]町を救うのだ。」メロスが[[そう]]言うと、王は<<冷ややか|ひややか|心がこもらず、つめたいようす>>に笑いました。「人の心など、信じられぬ。人はみな、<<私欲|しよく|自分だけが得をしたいと思う心>>のかたまりだ。」メロスは<<処刑|しょけい|刑として、命をうばうこと>>されることを覚悟して言いました。「私はどうなってもかまいません。{{A:ただし}}、妹の結婚式のために、三日間だけ時間をください。そのかわり、友人の((セリヌンティウス))を<<人質|ひとじち|約束を守らせるために、あずかっておく人>>として置いていきます。私がもどらなければ、友人を殺してください。」王は、うす笑いをうかべました。「[[その]]条件をのんでやろう。」王は、メロスがにげると決めつけて、心の中で笑っていました。{{B:しかし}}、メロスは友を信じ、友もメロスを信じていました。`,
+    ref: { i: 2, o: ['三日間のうちにもどり、友人を人質に置くという条件', '妹が結婚するという事実', '王が人を信じないこと', 'メロスがつかまったこと'], w: 'メロスは「三日間の時間がほしい。かわりに友人を置いていく」と申し出ました。その内容を、王は「その条件」と呼んでいます。' },
+    gist: { tpl: 'メロスは、三日間の時間をもらうかわりに、友人の[1]を[2]として置いていくことにした。', b: [{ o: ['セリヌンティウス', 'ディオニス', '村の老人'], w: '「友人のセリヌンティウスを」とあります。' }, { o: ['人質', '王', '兵士'], w: '「人質として置いていきます」とあります。' }] },
+    conj: [{ o: ['ただし', 'だから', 'つまり', 'たとえば'], w: '「どうなってもいい」と言いながら、一つだけ条件を足しています。条件をつけ加える「ただし」。' }, { o: ['しかし', 'だから', 'つまり', 'たとえば'], w: '王は「にげる」と決めつけていたが、メロスと友は信じ合っていた。反対の内容をつなぐ「しかし」。' }],
+    q: { s: '「王は、うす笑いをうかべました」とありますが、王の考えとして最も適切なものはどれですか。', ev: '王は、メロスがにげると決めつけて、心の中で笑っていました。',
+      o: [['メロスは約束を守らず、にげると思っている。', '王は人の心を信じていないので、メロスもにげると考えています。'], ['メロスの勇気に感動している。', '感動する様子はなく、うす笑いです。'], ['メロスをすぐに自由にしてやろうと思っている。', '三日後の約束という条件をつけています。'], ['メロスの妹をむかえに行くつもりでいる。', '妹をむかえに行く話はありません。']] },
+    tz: '三日間の約束で村へ走ったメロス。帰り道には、思いもよらない試練が待っていました。' },
+  { t: '友のもとへ', lv: 3,
+    tx: `メロスは、村で妹の結婚式をすませると、約束の町へ向かって走り出しました。{{A:ところが}}、大雨で橋がこわれ、<<濁流|だくりゅう|にごってはげしく流れる水>>が行く手をふさいでいます。メロスは川に飛びこみ、必死に泳ぎきりました。さらに<<山賊|さんぞく|山にかくれて、人をおそう悪者>>におそわれても、たたかって切りぬけました。{{B:けれども}}、ついに体がつかれ果て、メロスは道にたおれこんでしまいました。「もうだめだ。」[[その]]とき、近くから水がわく音が聞こえました。メロスが一口飲むと、体に力がもどってきました。「友が待っている。[[あの]]友を、死なせてはならない。」メロスは立ち上がり、太陽がしずむ直前に、<<刑場|けいじょう|罪のばつ（刑）を行う場所>>へかけこみました。友のセリヌンティウスは、メロスの顔を見て、笑ってうなずきました。二人は、[[この]]とき、だきしめ合って泣きました。`,
+    ref: { i: 1, o: ['人質となって待っている友人のセリヌンティウス', '橋をこわした大雨', '山で出会った山賊', '妹の結婚式の相手'], w: '「あの友」は、メロスが身代わりに置いてきた友人、セリヌンティウスです。' },
+    gist: { tpl: 'メロスは、[1]にも山賊にも負けずに走ったが、とちゅうでたおれた。しかし、[2]を飲んで力がもどり、約束の時間に間に合った。', b: [{ o: ['濁流', '雪', '火事'], w: '橋がこわれて、はげしい水が行く手をふさいでいました。' }, { o: ['わき水', 'お酒', '牛乳'], w: '「水がわく音」を聞いて、一口飲んだとあります。' }] },
+    conj: [{ o: ['ところが', 'だから', 'つまり', 'たとえば'], w: '走り出した（順調）のに、橋がこわれていた。思いがけない妨害をつなぐ「ところが」。' }, { o: ['けれども', 'だから', 'つまり', 'たとえば'], w: '川も山賊も乗りこえたのに、体がつかれ果てた。反対の内容をつなぐ「けれども」。' }],
+    q: { s: 'メロスを立ち上がらせた思いとして最も適切なものはどれですか。', ev: '「友が待っている。あの友を、死なせてはならない。」',
+      o: [['友人との約束を守り、友を死なせたくないという思い。', '「友が待っている」という言葉に、メロスの強い友情が表れています。'], ['王にほうびをもらいたいという思い。', 'ほうびの話はありません。'], ['自分の命だけは助かりたいという思い。', 'メロスは自分の命よりも友との約束を守るために走っています。'], ['妹の結婚式にもう一度出たいという思い。', '結婚式はすでに終わっています。']] },
+    tz: '『走れメロス』はここまで。友を信じる心が、メロスの足を前に進めました。' }
+  ]
+},
+{
+  icon: '🍽️', title: '注文の多い料理店', author: '宮沢賢治', genre: 'ふしぎ・ドキドキ',
+  blurb: '山おくの西洋料理店には、ふしぎな「注文」がいっぱい。',
+  parts: [
+  { t: '山おくの西洋料理店', lv: 1,
+    tx: `二人の若い<<紳士|しんし|礼ぎ正しい、上品な男の人>>が、鉄ぽうをかついで、山おくの森を歩いていました。連れてきた犬は、山の深さに耐えられず、死んでしまいました。二人は道に迷い、すっかり<<空腹|くうふく|おなかがすくこと>>になりました。{{A:ところが}}、ふと見ると、森の中に、りっぱな西洋風の家が立っています。「[[こんな]]山おくに、店があるとは。」二人はおどろきました。入り口の看板には「<<山猫軒|やまねこけん|この料理店の名前（山猫は野生のネコの仲間）>>」と書かれています。「[[ここ]]なら、何か食べさせてくれるだろう。」{{B:だから}}、二人はよろこんで、((入り口))から中に入っていきました。`,
+    ref: { i: 1, o: ['山猫軒という西洋風の店', '道に迷った森', '犬が死んだ場所', '二人の家'], w: '直前に見つけた「山猫軒」の店を指しています。看板に書かれていることもヒントです。' },
+    gist: { tpl: '二人の紳士は、山おくで[1]に迷い、おなかがすいていたところ、[2]という西洋風の店を見つけた。', b: [{ o: ['道', '友だち', '宿題'], w: '「二人は道に迷い」とあります。' }, { o: ['山猫軒', 'ホテル', '学校'], w: '看板に書かれていた店の名前です。' }] },
+    conj: [{ o: ['ところが', 'だから', 'つまり', 'たとえば'], w: 'おなかがすいて困っていたのに、ふと見ると店があった。状況が変わる「ところが」。' }, { o: ['だから', 'しかし', 'つまり', 'たとえば'], w: '食べさせてくれるだろうと思った（理由）→入った（結果）。「だから」。' }],
+    q: { s: '二人が「山猫軒」に入ろうとした理由として最も適切なものはどれですか。', ev: '「ここなら、何か食べさせてくれるだろう。」',
+      o: [['道に迷っておなかがすき、食べ物を出してもらえると思ったから。', '「何か食べさせてくれるだろう」と二人が思っています。'], ['店の人に呼ばれたから。', '呼ばれたという記述はありません。'], ['犬をさがしたかったから。', '犬はすでに死んでしまっています。'], ['山猫を見たかったから。', '山猫を見たいという話ではありません。']] },
+    tz: 'ところが、この店には、ふしぎな「ことわり書き」がいくつもあって…。' },
+  { t: 'おかしな注文', lv: 2,
+    tx: `玄関の戸には「<<当店|とうてん|この店>>は注文の多い料理店ですから、どうかご<<承知|しょうち|わかって、受け入れること>>ください」と書いてありました。「きっと、はやっている店なんだな。」二人は、<<廊下|ろうか|建物の中の長い通り道>>を進みました。次の戸には「どうぞ、髪をととのえ、くつの泥を落としてください」とあります。{{A:そして}}、その次の戸には、「鉄ぽうとたまを、[[ここ]]に置いてください」と書かれていました。二人は[[それ]]にしたがい、次々と戸をあけていきました。{{B:ところが}}、だんだん、おかしな注文ばかりが増えてきました。「ネクタイピン、メガネ、財布などの金物類は、ここに置いてください。」二人は、ふしぎに思いながらも、言われた通りにしました。`,
+    ref: { i: 1, o: ['戸に書かれていた、鉄ぽうとたまを置くという注文', '入り口の看板', '長い廊下', '料理を食べること'], w: '戸に書かれていた「鉄ぽうとたまを置いてください」という注文を指し、二人はそれにしたがっています。' },
+    gist: { tpl: '二人は、戸に書かれた[1]どおりに、次々と戸をあけていった。しかし、だんだん[2]注文が増えていった。', b: [{ o: ['注文', '地図', '手紙'], w: '「注文の多い料理店」という店です。' }, { o: ['おかしな', 'やさしい', '少ない'], w: '「だんだん、おかしな注文ばかりが増えてきました」とあります。' }] },
+    conj: [{ o: ['そして', 'しかし', 'なぜなら', 'または'], w: '注文がつづいていることを、つけ加えながら述べる「そして」。' }, { o: ['ところが', 'だから', 'つまり', 'たとえば'], w: 'ふつうの注文だと思っていたのに、だんだんおかしくなった。様子が変わる「ところが」。' }],
+    q: { s: '「二人は、ふしぎに思いながらも、言われた通りにしました」とありますが、二人がそうした理由として最も適切なものはどれですか。', ev: '「きっと、はやっている店なんだな。」',
+      o: [['人気のある、ていねいな店だと思いこんでいたから。', '「はやっている店」と、よい店だと思いこんでいます。'], ['店の人におどされていたから。', 'おどされる場面はまだありません。'], ['注文の意味をすべて理解していたから。', '「ふしぎに思いながら」とあり、理解していません。'], ['犬にそう命令されたから。', '犬は死んでしまっています。']] },
+    tz: 'おかしな注文はまだまだつづきます。奥の部屋で、二人が気づいたこととは…。' },
+  { t: '正体は…', lv: 3,
+    tx: `注文は、どんどんふえていきました。「顔や手に、クリームをぬってください。」「<<塩|しお|食べ物に味をつける白い粉>>をよくもみこんでください。」二人は、はっと気づきました。「どうも、おかしいぞ。」「[[これ]]は、西洋料理を食べさせる店ではなくて、西洋料理に来た客を食べる店なんだ。」{{A:つまり}}、食べられるのは、二人のほうだったのです。二人は、<<恐怖|きょうふ|おそろしくて、ふるえるような気持ち>>のあまり、ぶるぶるふるえました。{{B:ところが}}、そのとき、後ろから「ワン、ワン」と、死んだはずの((二ひきの犬))が飛びこんできました。[[その]]声におどろいて、店は、けむりのようにきえてしまいました。`,
+    ref: { i: 0, o: ['クリームや塩をぬるなど、次々におかしな注文をされていること', '料理が運ばれてくること', '店の名前が山猫軒であること', '犬が二ひきいること'], w: '「これは…店なんだ」は、ここまでの、次々とおかしな注文が出されている出来事をふまえた言葉です。' },
+    gist: { tpl: '二人は、注文の多い料理店が、じつは[1]を食べる店だと気づいた。そのとき[2]が飛びこんできて、店はきえた。', b: [{ o: ['客', '犬', '山猫'], w: '「西洋料理に来た客を食べる店」と気づきました。' }, { o: ['犬', '警察', '店員'], w: '「ワン、ワン」と飛びこんできたのは犬です。' }] },
+    conj: [{ o: ['つまり', 'しかし', 'なぜなら', 'または'], w: '「客を食べる店」を言いかえて、「食べられるのは二人」と説明しています。言いかえの「つまり」。' }, { o: ['ところが', 'だから', 'つまり', 'たとえば'], w: 'ふるえているときに、思いがけず犬が飛びこんできた。意外なできごとをつなぐ「ところが」。' }],
+    q: { s: '「食べられるのは、二人のほうだったのです」とありますが、二人がそう気づいたきっかけとして最も適切なものはどれですか。', ev: '「顔や手に、クリームをぬってください。」「塩をよくもみこんでください。」',
+      o: [['クリームや塩をぬるようにと、注文が次々と出されたから。', '料理の下ごしらえのような注文だったので、自分たちが料理にされると気づきました。'], ['犬がほえたから。', '犬が来たのは、気づいたあとです。'], ['店の人がとつぜんあらわれたから。', '店の人の登場は書かれていません。'], ['鉄ぽうを置いたまま、忘れたから。', '鉄ぽうを忘れたことは、きっかけではありません。']] },
+    tz: '『注文の多い料理店』はここまで。見かけにだまされないことも、大切ですね。' }
+  ]
+},
+{
+  icon: '🏮', title: '杜子春', author: '芥川龍之介', genre: '成長・やさしさ',
+  blurb: 'お金をなくした青年が、本当に大切なものに気づく物語。',
+  parts: [
+  { t: '片目の老人', lv: 1,
+    tx: `むかし、中国の<<洛陽|らくよう|むかしの中国の大きな都>>に、((杜子春))という若者がいました。もとは金持ちの息子でしたが、お金を使い果たして、食べるものもありません。ある夕方、道ばたで<<途方にくれて|とほうにくれて|どうしたらよいか分からなくなって>>いると、片目の<<老人|ろうじん|年をとった人>>が声をかけてきました。「お前は何をしているのかね。」「今夜の<<ねぐら|ねぐら|ねる場所>>もなく、困っているのです。」{{A:すると}}、老人は言いました。「[[それ]]は気の毒だ。では、いいことを教えよう。夕日でお前の影が地面にうつったら、[[その]]頭のところを、夜中にほってごらん。きっと黄金が山ほど出てくるよ。」杜子春は、うそのような話だと思いました。{{B:しかし}}、ためしに言われた場所をほってみると、本当に黄金が出てきたのです。`,
+    ref: { i: 0, o: ['杜子春が今夜のねぐらもなく困っていること', '老人が片目であること', '杜子春が夕日を見ていること', '黄金が山ほどあること'], w: '老人は、杜子春の「今夜のねぐらもなく、困っている」という話を聞いて、「それは気の毒だ」と言っています。' },
+    gist: { tpl: 'お金を使い果たした杜子春は、道ばたで[1]に会い、夕日で影がうつった場所を[2]と黄金が出ると教わった。', b: [{ o: ['片目の老人', '金持ちの商人', 'お母さん'], w: '「片目の老人が声をかけてきました」とあります。' }, { o: ['ほる', 'ふむ', '照らす'], w: '「頭のところを、夜中にほってごらん」とあります。' }] },
+    conj: [{ o: ['すると', 'しかし', 'なぜなら', 'または'], w: '困っていると答えた、そのあとの老人の反応を述べる「すると」。' }, { o: ['しかし', 'だから', 'つまり', 'たとえば'], w: 'うそのような話だと疑ったが、ためしにほってみた。反対の行動をつなぐ「しかし」。' }],
+    q: { s: '「うそのような話だと思いました」とありますが、杜子春がそう思った理由として最も適切なものはどれですか。', ev: 'きっと黄金が山ほど出てくるよ。',
+      o: [['影の頭をほるだけで、黄金が山ほど出るという話が、ありえないように思えたから。', 'ふつうでは考えられない話なので、うたがうのは自然です。'], ['老人が自分の知り合いだったから。', '知り合いだとは書かれていません。'], ['すでに黄金をたくさん持っていたから。', 'お金を使い果たしています。'], ['老人が大声でどなったから。', '老人はどなっていません。']] },
+    tz: '黄金を手にいれた杜子春。ところが、お金には思わぬ落とし穴が…。' },
+  { t: 'お金と友だち', lv: 2,
+    tx: `杜子春は、あっという間に洛陽一の大金持ちになりました。りっぱな家に住み、毎日、友人たちを集めてごちそうを食べました。{{A:ところが}}、三年もたたないうちに、お金を使い果たし、また貧乏になってしまいました。すると、[[あれ]]ほど集まっていた友人たちは、道で会っても、あいさつ一つしなくなりました。杜子春は、<<世間|せけん|世の中。まわりの人々>>の冷たさに、がっかりしました。そこへ、またあの老人があらわれ、黄金のありかを教えてくれました。杜子春はふたたび大金持ちになりましたが、同じことのくり返しでした。{{B:そして}}、三度目に老人が来たとき、杜子春は言いました。「[[この]]世は、お金の力で人の心を買えないことが、よくわかりました。もう、お金はいりません。あなたの<<弟子|でし|先生について、教えを学ぶ人>>にしてください。」`,
+    ref: { i: 1, o: ['人間が暮らしている、この世の中', '洛陽の町だけ', '仙人の住む山', '極楽の世界'], w: '「この世」は、いま自分たちが生きている人間の世の中のこと。お金があるときだけ友人が集まった体験から出た言葉です。' },
+    gist: { tpl: '杜子春は、大金持ちになると[1]が集まるが、貧乏になると[2]ことを知り、世間に失望した。', b: [{ o: ['友人たち', '兵士たち', '動物たち'], w: '「毎日、友人たちを集めて」とあります。' }, { o: ['だれも相手にしなくなる', 'もっとやさしくしてくれる', 'お金をくれる'], w: '「あいさつ一つしなくなりました」とあります。' }] },
+    conj: [{ o: ['ところが', 'だから', 'つまり', 'たとえば'], w: '楽しい大金持ちの暮らしに、貧乏という反対のことが起きた。「ところが」。' }, { o: ['そして', 'しかし', 'なぜなら', 'または'], w: '同じことがくり返され、三度目に起こったことをつなぐ「そして」。' }],
+    q: { s: '「世間の冷たさに、がっかりしました」とありますが、がっかりした理由として最も適切なものはどれですか。', ev: '道で会っても、あいさつ一つしなくなりました。',
+      o: [['お金があるときだけ友人が集まり、貧乏になると知らん顔をされたから。', '人が自分ではなく、お金を見ていたとわかったからです。'], ['老人に黄金を取りあげられたから。', '老人は黄金を教えてくれました。'], ['友人にお金を貸したのに、返してもらえなかったから。', 'お金を貸した話はありません。'], ['洛陽の町から追い出されたから。', '追い出された話はありません。']] },
+    tz: '老人の弟子になった杜子春。最後の試練は、何があっても「声を出さない」こと。' },
+  { t: 'お母さんの言葉', lv: 3,
+    tx: `老人は、じつは<<仙人|せんにん|ふしぎな力を持つといわれる、修行をつんだ人>>でした。仙人は言いました。「私は出かけてくる。[[その]]間、何が起きても、決して口をきいてはならぬぞ。」杜子春は、ひとりで静かにすわり続けました。{{A:すると}}、おそろしいけものや鬼があらわれ、杜子春をおどしましたが、杜子春は一言もしゃべりません。ついに命をうばわれ、<<地獄|じごく|悪いことをした人が行って、くるしむといわれる世界>>の王の前に引き出されました。王は、杜子春の両親を連れてきて、むちで打ちはじめました。母親は、苦しみながら言いました。「私はどうなってもいい。お前さえ幸せなら、<<黙って|だまって|口をきかないで>>いておくれ。」[[その]]やさしい言葉を聞いて、杜子春は思わず「お母さん」とさけんでしまいました。気がつくと、杜子春は洛陽の町に立っていました。{{B:ところが}}、仙人はおこらず、やさしく言いました。「もし[[あそこ]]でだまっていたら、わしはお前を見かぎっていただろう。お前は、人の親の子として、それでよいのだ。」杜子春は、これからは人間らしく、正直に暮らそうと心に決めました。`,
+    ref: { i: 1, o: ['「お前さえ幸せなら、黙っていておくれ」という母親の言葉', '地獄の王の言葉', '仙人の言葉', 'けものや鬼の声'], w: '「そのやさしい言葉」は、直前の母親の言葉を指しています。自分の苦しみよりも子の幸せを願う言葉です。' },
+    gist: { tpl: '杜子春は、どんなおどしにも[1]で耐えたが、母親の言葉を聞いて思わず[2]しまった。', b: [{ o: ['だまったまま', '大声で', '泣きながら'], w: '「一言もしゃべりません」とあります。' }, { o: ['「お母さん」とさけんで', 'にげ出して', '目をとじて'], w: '「思わず『お母さん』とさけんでしまいました」とあります。' }] },
+    conj: [{ o: ['すると', 'しかし', 'なぜなら', 'または'], w: 'すわり続けたあとに起こったできごとをつなぐ「すると」。' }, { o: ['ところが', 'だから', 'つまり', 'たとえば'], w: '声を出してしかられると思ったのに、仙人はやさしかった。思いと反対になる「ところが」。' }],
+    q: { s: '仙人の「お前は、人の親の子として、それでよいのだ」という言葉の意味として最も適切なものはどれですか。', ev: 'もしあそこでだまっていたら、わしはお前を見かぎっていただろう。',
+      o: [['親を思う心をなくさなかった杜子春を、仙人が認めたということ。', '母を思って声を出したことを、人としてのやさしさと考えています。'], ['約束をやぶったことを、きびしくしかったということ。', '仙人はおこらず、やさしく言っています。'], ['杜子春には仙人になる才能がないということ。', '才能の話ではなく、人間らしい心を認めています。'], ['地獄の王に反省するように言ったということ。', '地獄の王に向けた言葉ではありません。']] },
+    tz: '『杜子春』はここまで。お金や力より大切なものを、杜子春は見つけました。' }
+  ]
+},
+{
+  icon: '🌌', title: '銀河鉄道の夜', author: '宮沢賢治', genre: 'ふしぎ・SF',
+  blurb: '星まつりの夜、少年ジョバンニは銀河をゆく汽車に乗ります。',
+  parts: [
+  { t: '星まつりの夜', lv: 1,
+    tx: `ジョバンニは、貧しい家の少年です。お父さんは遠い所へ行ったまま帰らず、お母さんは病気でした。{{A:だから}}、ジョバンニは、学校がおわると、<<活版所|かっぱんじょ|むかし、本や新聞の文字をならべて印刷した仕事場>>で働いていました。今夜は、町の<<星まつり|ほしまつり|星をまつる、にぎやかな夜のお祭り>>です。みんなが楽しそうに歩く中、ジョバンニは、ひとりで牛乳を取りに行く道を歩いていました。クラスの友だちが、ジョバンニを見て、からかいました。「ジョバンニ、お父さんからラッコの上着が来るよ。」ジョバンニは、くやしくなりました。{{B:しかし}}、ただ一人、((カムパネルラ))だけは、[[そんな]]ことを言わず、心配そうにジョバンニを見ていました。`,
+    ref: { i: 0, o: ['ジョバンニをからかうようなこと', 'お母さんの病気のこと', '星まつりの話', '牛乳を取りに行くこと'], w: '直前で友だちが「ラッコの上着が来るよ」とからかいました。カムパネルラは、そういうことを言わなかったのです。' },
+    gist: { tpl: 'ジョバンニは、[1]の少年で、働きながら学校に通っていた。星まつりの夜、友だちにからかわれたが、[2]だけは心配してくれた。', b: [{ o: ['貧しい家', '大金持ち', '王様'], w: '最初の文に書かれています。' }, { o: ['カムパネルラ', '先生', '町の人々'], w: '「ただ一人、カムパネルラだけは」とあります。' }] },
+    conj: [{ o: ['だから', 'しかし', 'つまり', 'たとえば'], w: 'お父さんが帰らず、お母さんが病気という理由があって、働いている。理由→結果の「だから」。' }, { o: ['しかし', 'だから', 'つまり', 'たとえば'], w: 'みんながからかう中で、カムパネルラだけは別。反対の内容をつなぐ「しかし」。' }],
+    q: { s: '「ジョバンニは、くやしくなりました」とありますが、その理由として最も適切なものはどれですか。', ev: 'クラスの友だちが、ジョバンニを見て、からかいました。',
+      o: [['友だちに、お父さんのことでからかわれたから。', '家の事情をからかわれたので、くやしくなりました。'], ['牛乳を買うお金が足りなかったから。', 'お金が足りないという記述はありません。'], ['カムパネルラに無視されたから。', 'カムパネルラは心配そうに見てくれています。'], ['星まつりに行けなかったから。', '行けなかったことではなく、からかわれたことが理由です。']] },
+    tz: 'ひとりぼっちで丘の上に向かったジョバンニ。そこで、ふしぎな汽車が待っていました。' },
+  { t: '銀河ステーション', lv: 2,
+    tx: `ジョバンニは、丘の上でひとり、草の上にころがって、星空を見上げました。{{A:すると}}、((どこ|${DO}))からか「銀河ステーション、銀河ステーション」という声が聞こえ、目の前に、青白い光につつまれた汽車が止まりました。ジョバンニが汽車に乗りこむと、向かいの席には、カムパネルラがすわっていました。「カムパネルラ、君も乗っていたんだね。」二人は窓の外を見ました。窓の外には、<<銀河|ぎんが|夜空に白い帯のように見える、たくさんの星の集まり>>が、きらきらと光っています。「[[これ]]は、ふつうの汽車ではないね。」と、ジョバンニは言いました。{{B:そして}}、二人は[[この]]汽車に乗って、星の世界を<<旅|たび|家をはなれて、遠くへ行くこと>>することになったのです。`,
+    ref: { i: 0, o: ['青白い光につつまれた銀河の汽車', '丘の上の草', '星まつりの町', 'カムパネルラ'], w: 'ジョバンニが乗りこんだのは汽車です。「これは、ふつうの汽車ではない」とあるので、いま乗っている汽車を指しています。' },
+    gist: { tpl: '丘の上で星空を見ていたジョバンニは、[1]に乗りこみ、そこで[2]と出会った。二人は星の世界を旅しはじめた。', b: [{ o: ['銀河ステーションの汽車', 'バス', '船'], w: '「青白い光につつまれた汽車が止まりました」とあります。' }, { o: ['カムパネルラ', 'お父さん', '先生'], w: '「向かいの席には、カムパネルラがすわっていました」とあります。' }] },
+    conj: [{ o: ['すると', 'しかし', 'なぜなら', 'または'], w: '星空を見ていたあとに起こったできごとをつなぐ「すると」。' }, { o: ['そして', 'しかし', 'なぜなら', 'または'], w: 'ジョバンニの言葉のあと、二人が旅をはじめたことをつなぐ「そして」。' }],
+    q: { s: '「これは、ふつうの汽車ではないね」とありますが、ジョバンニがそう言った理由として最も適切なものはどれですか。', ev: '窓の外には、銀河が、きらきらと光っています。',
+      o: [['窓の外に銀河が見えるという、ふつうでは考えられない景色が広がっていたから。', '汽車が空の上を走っていることに気づいています。'], ['汽車がとても古くて、こわれそうだったから。', '汽車の古さの記述はありません。'], ['乗っている人が、全員知らない人だったから。', 'カムパネルラという友だちが乗っています。'], ['汽車のスピードが遅すぎたから。', 'スピードの話は出てきません。']] },
+    tz: '星の世界をゆく汽車。二人は、ある悲しいお話を聞くことになります。' },
+  { t: 'サソリの火', lv: 3,
+    tx: `汽車の中で、ジョバンニとカムパネルラは、ひとつの話を聞きました。むかし、一ぴきの<<サソリ|さそり|はさみと毒のはりを持つ生き物>>がいました。サソリは、イタチに追いかけられ、<<井戸|いど|地面をほって、水をくみ上げる穴>>に落ちておぼれてしまいます。そのとき、サソリは<<祈り|いのり|心から願うこと>>ました。「ああ、わたしは、たくさんの命をうばってきた。{{A:それなのに}}、[[その]]わたしが、イタチに食べられまいと逃げ回ったのは、なぜだろう。どうか、[[この]]体を、みんなの本当のしあわせのために使ってください。」すると、サソリの体は、美しい赤い火となって、夜の空を照らしつづけたのです。ジョバンニは、[[これ]]を聞いて、「ぼくも、みんなのしあわせのために生きたい」と思いました。{{B:ところが}}、ふと気がつくと、むかいの席にいたはずのカムパネルラの姿が、きえていました。`,
+    ref: { i: 2, o: ['サソリが、自分の体をみんなのしあわせのために使ってほしいと祈った話', 'カムパネルラの話', '汽車が走る音', 'イタチの足音'], w: '「これを聞いて」の「これ」は、直前に語られたサソリの話を指しています。' },
+    gist: { tpl: 'サソリは、おぼれながら「この体を、みんなの[1]のために使ってください」と祈り、体が[2]火となって夜空を照らした。', b: [{ o: ['本当のしあわせ', 'お金もうけ', '自分の名誉'], w: '祈りの言葉に書かれています。' }, { o: ['赤い', '青い', '黒い'], w: '「美しい赤い火となって」とあります。' }] },
+    conj: [{ o: ['それなのに', 'だから', 'つまり', 'たとえば'], w: 'たくさんの命をうばってきたのに、自分は食べられまいと逃げた。前と反対の内容をつなぐ「それなのに」。' }, { o: ['ところが', 'だから', 'つまり', 'たとえば'], w: 'しあわせに生きたいと思ったとき、思いがけずカムパネルラがきえていた。意外なできごとをつなぐ「ところが」。' }],
+    q: { s: 'ジョバンニが「ぼくも、みんなのしあわせのために生きたい」と思った理由として最も適切なものはどれですか。', ev: 'どうか、この体を、みんなの本当のしあわせのために使ってください。',
+      o: [['サソリの、自分よりみんなのしあわせを願う祈りに心を動かされたから。', '祈りの内容から、他の人のために生きたいという気持ちが生まれました。'], ['サソリの話がこわくて、にげ出したくなったから。', 'こわがる様子は書かれていません。'], ['カムパネルラにそう命令されたから。', '命令の記述はありません。'], ['お金持ちになりたいと思ったから。', 'お金の話は関係ありません。']] },
+    tz: '『銀河鉄道の夜』はここまで。本当のしあわせとは何かを、考えさせてくれるお話です。' }
+  ]
+}
+];
+
+
+
+</script>
+<script>
+(function () {
+  const KEY = 'kokugo_monogatari_v1';
+  let save = {};
+  try { save = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { save = {}; }
+  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(save)); } catch (e) {} };
+  const $ = id => document.getElementById(id);
+  const $app = $('app');
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  // 語句の読み・意味（タップで表示）
+  const gl = s => esc(s).replace(/&lt;&lt;(.+?)\|(.*?)\|(.*?)&gt;&gt;/g, (m, w, y, mm) =>
+    `<span class="gl" data-y="${y}" data-m="${mm}" title="${y}　${mm}">${w}</span>`);
+  const praise = ['すばらしい！', 'その調子！', 'よく読めています！', 'ばっちり！', 'いいぞ！'];
+
+  // ---- 解析 ----
+  const RE = /\[\[(.+?)\]\]|\(\((.+?)\)\)|\{\{([A-Z]):(.+?)\}\}/g;
+  function parse(text) {
+    const out = []; let last = 0, ri = 0, m; RE.lastIndex = 0;
+    while ((m = RE.exec(text))) {
+      if (m.index > last) out.push({ k: 't', s: text.slice(last, m.index) });
+      if (m[1]) out.push({ k: 'ref', s: m[1], i: ri++ });
+      else if (m[2]) { const p = m[2].split('|'); out.push({ k: 'dec', s: p[0], n: p[1] || '' }); }
+      else out.push({ k: 'conj', id: m[3], s: m[4] });
+      last = RE.lastIndex;
+    }
+    if (last < text.length) out.push({ k: 't', s: text.slice(last) });
+    return out;
+  }
+  function passage(text, mode, opt) {
+    opt = opt || {};
+    return '<div class="passage">' + parse(text).map(t => {
+      const s = t.k === 't' ? gl(t.s) : esc(t.s);
+      if (mode === 'find') {
+        if (t.k === 'ref') return `<button class="tok" data-k="ref">${s}</button>`;
+        if (t.k === 'dec') return `<button class="tok" data-k="dec" data-n="${esc(t.n)}">${s}</button>`;
+        if (t.k === 'conj' && /^[こそあど]/.test(t.s)) return `<button class="tok" data-k="dec" data-n="${esc('「' + t.s + '」は、文と文をつなぐ接続詞です。「そ」ではじまりますが、ものや場所を指しているわけではないので、指示語ではありません。')}">${s}</button>`;
+        return s;
+      }
+      if (mode === 'ref' && t.k === 'ref' && t.i === opt.i) return `<mark>${s}</mark>`;
+      if (mode === 'conj' && t.k === 'conj') return `<span class="blank" data-b="${t.id}">【${t.id}】</span>`;
+      return s;
+    }).join('') + '</div>';
+  }
+  const plain = text => parse(text).map(t => t.s).join('');
+
+  // ---- 部品 ----
+  function choices(host, opts, cfg) {
+    const o = shuffle(opts.map((x, i) => Object.assign({}, x, { n: i })));
+    host.innerHTML = o.map((x, i) => `<div class="opt"><div class="orow"><button class="optb"><span class="num">${'①②③④'[i]}</span><span class="otx">${gl(x.t)}</span></button>${cfg.elim ? '<button class="x" title="まちがいだと思ったら消す">✕</button>' : ''}</div><div class="why"></div></div>`).join('');
+    let ok1 = true, fin = false;
+    const els = [...host.querySelectorAll('.opt')];
+    els.forEach((el, i) => {
+      const xb = el.querySelector('.x');
+      if (xb) xb.onclick = () => { if (!fin) el.classList.toggle('struck'); };
+      el.querySelector('.optb').onclick = () => {
+        if (fin || el.classList.contains('gone')) return;
+        const x = o[i];
+        if (x.ok) {
+          fin = true; el.classList.remove('struck'); el.classList.add('right');
+          el.querySelector('.why').innerHTML = '⭕ ' + gl(x.w || cfg.note || '');
+          els.forEach((e2, j) => {
+            if (j === i) return;
+            e2.classList.add('dim');
+            if (cfg.revealAll && !e2.classList.contains('gone')) e2.querySelector('.why').innerHTML = '✖ ' + gl(o[j].w || '');
+          });
+          cfg.onDone(ok1);
+        } else {
+          ok1 = false; el.classList.add('gone', 'shake');
+          el.querySelector('.why').innerHTML = '✖ ' + gl(x.w || 'おしい！もう一度、本文にもどって確かめよう。');
+          setTimeout(() => el.classList.remove('shake'), 500);
+        }
+      };
+    });
+  }
+  function blanks(box, defs, onDone) {
+    const host = box.querySelector('.rows');
+    host.innerHTML = defs.map(d => `<div class="row" data-b="${d.id}"><div class="rl">${d.label}</div><div class="ropts">${shuffle(d.o).map(w => `<button class="rb">${esc(w)}</button>`).join('')}</div><div class="why"></div></div>`).join('');
+    let left = defs.length, good = 0;
+    defs.forEach(d => {
+      const row = host.querySelector(`.row[data-b="${d.id}"]`);
+      let first = true, fin = false;
+      row.querySelectorAll('.rb').forEach(b => b.onclick = () => {
+        if (fin || b.classList.contains('gone')) return;
+        if (b.textContent === d.o[0]) {
+          fin = true; if (first) good++;
+          b.classList.add('right');
+          row.querySelectorAll('.rb').forEach(x => { if (x !== b) x.classList.add('dim'); });
+          row.querySelector('.why').innerHTML = '⭕ ' + gl(d.w);
+          const sp = box.querySelector(`.blank[data-b="${d.id}"]`);
+          if (sp) { sp.textContent = d.o[0]; sp.classList.add('filled'); }
+          if (--left === 0) onDone(good);
+        } else {
+          first = false; b.classList.add('gone', 'shake');
+          row.querySelector('.why').innerHTML = '✖ もう一度、前後の文のつながりを考えてみよう。';
+          setTimeout(() => b.classList.remove('shake'), 500);
+        }
+      });
+    });
+  }
+
+  // ---- 練習の進行 ----
+  const STEPS = ['find', 'ref', 'gist', 'conj', 'mcq'];
+  const STEPNO = { find: 1, ref: 1, gist: 2, conj: 3, mcq: 4 };
+  const STEPNAME = ['指示語', '要点', '接続詞', '選択問題'];
+  const LV = { 1: 'Lv.1 はじめの一歩', 2: 'Lv.2 ステップアップ', 3: 'Lv.3 チャレンジ' };
+  let run = null;
+
+  function startPart(si, pi) { run = { si, pi, step: 0, first: 0, total: 7 }; stepView(); }
+  function head() {
+    const s = STORIES[run.si], p = s.parts[run.pi], n = STEPNO[STEPS[run.step]];
+    return `<div class="top"><button class="back" id="bk">← もどる</button><div class="ttl">${s.icon} ${s.title} <small>第${run.pi + 1}話「${p.t}」</small></div></div>
+<div class="steps">${STEPNAME.map((x, i) => `<div class="st ${i + 1 < n ? 'done' : ''} ${i + 1 === n ? 'cur' : ''}"><b>${i + 1}</b>${x}</div>`).join('')}</div>
+<div class="tip">💡 点線の下線がある言葉をタップすると、<b>読みと意味</b>が出ます。</div>`;
+  }
+  function stepView() {
+    const p = STORIES[run.si].parts[run.pi], st = STEPS[run.step];
+    $app.innerHTML = head() + '<div id="box"></div><div id="nxw"></div>';
+    $('bk').onclick = home;
+    const fin = () => {
+      $('nxw').innerHTML = `<div class="okmsg">🎉 ${praise[Math.floor(Math.random() * praise.length)]}</div><button class="btn big" id="nx">つぎへ ▶</button>`;
+      $('nx').onclick = () => { run.step++; if (run.step >= STEPS.length) result(); else stepView(); };
+      $('nx').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    ({ find: stepFind, ref: stepRef, gist: stepGist, conj: stepConj, mcq: stepMcq })[st](p, $('box'), fin);
+    window.scrollTo(0, 0);
+  }
+
+  function stepFind(p, box, done) {
+    const n = parse(p.tx).filter(t => t.k === 'ref').length;
+    box.innerHTML = `<div class="card"><h2>STEP1-1　指示語（こそあどことば）を探そう</h2>
+<p class="inst">「これ・それ・あの・そこ」のように、ものや場所、ことがらを指すことばが<b>指示語</b>です。<br>下線がひいてある言葉の中から、<b>指示語</b>をすべて選ぼう。（正解は ${n}こ）</p>
+${passage(p.tx, 'find')}<div class="msg" id="msg"></div><button class="btn" id="chk">これでいい！</button></div>`;
+    const toks = [...box.querySelectorAll('.tok')]; let first = true;
+    toks.forEach(t => t.onclick = () => { if (!t.disabled) t.classList.toggle('sel'); });
+    $('chk').onclick = () => {
+      const sel = toks.filter(t => t.classList.contains('sel'));
+      const wrong = sel.filter(t => t.dataset.k === 'dec'), right = sel.filter(t => t.dataset.k === 'ref');
+      const msg = $('msg');
+      if (wrong.length || right.length < n) {
+        first = false; let m = '';
+        wrong.forEach(t => { t.classList.remove('sel'); t.classList.add('bad'); t.disabled = true; m += `<div>✖「${esc(t.textContent)}」…${esc(t.dataset.n || 'これは指示語ではありません。')}</div>`; });
+        if (right.length < n) m += `<div>まだ見つかっていない指示語があります。「こ・そ・あ」ではじまることばを探そう。（いま ${right.length}こ）</div>`;
+        msg.className = 'msg warn'; msg.innerHTML = m;
+      } else {
+        toks.forEach(t => { t.disabled = true; if (t.dataset.k === 'ref') { t.classList.remove('sel'); t.classList.add('ok'); } });
+        const notes = toks.filter(t => t.dataset.k === 'dec' && t.dataset.n && !t.classList.contains('bad'));
+        msg.className = 'msg good';
+        msg.innerHTML = '⭕ 全部見つかりました！指示語は「こ・そ・あ」ではじまり、ものや場所、ことがらを指します。' + notes.map(t => `<div class="note">📝「${esc(t.textContent)}」…${esc(t.dataset.n)}</div>`).join('');
+        $('chk').remove(); if (first) run.first++; done();
+      }
+    };
+  }
+  function stepRef(p, box, done) {
+    const tk = parse(p.tx).filter(t => t.k === 'ref')[p.ref.i];
+    box.innerHTML = `<div class="card"><h2>STEP1-2　指示語は何を指している？</h2>
+<p class="inst">色のついた指示語「<b>${esc(tk.s)}</b>」は、何を指していますか。<br><span class="hint">ヒント：指示語の<b>前の文</b>に答えがかくれています。</span></p>
+${passage(p.tx, 'ref', { i: p.ref.i })}<div id="ch"></div></div>`;
+    choices($('ch'), p.ref.o.map((t, i) => ({ t, ok: i === 0 })), { note: p.ref.w, onDone: ok => { if (ok) run.first++; done(); } });
+  }
+  function stepGist(p, box, done) {
+    const tpl = esc(p.gist.tpl).replace(/\[(\d)\]/g, (m, d) => `<span class="blank" data-b="${d}">${'①②③'[d - 1]}</span>`);
+    box.innerHTML = `<div class="card"><h2>STEP2　要点をまとめよう</h2>
+<p class="inst">この場面のあらすじ（要点）です。空らん①②に入る言葉を選んで、文を完成させよう。</p>
+${passage(p.tx, 'plain')}<div class="summary"><div class="sl">📖 この場面の要点</div>${tpl}</div><div class="rows"></div></div>`;
+    blanks(box, p.gist.b.map((b, i) => ({ id: String(i + 1), label: `${'①②③'[i]}に入る言葉`, o: b.o, w: b.w })), good => { run.first += good; done(); });
+  }
+  function stepConj(p, box, done) {
+    const ids = parse(p.tx).filter(t => t.k === 'conj').map(t => t.id);
+    box.innerHTML = `<div class="card"><h2>STEP3　つなぎの言葉（接続詞）を入れよう</h2>
+<p class="inst">【A】【B】に入る、文と文をつなぐ言葉を選ぼう。<br><span class="hint">ヒント：前の文と後ろの文が「同じ向き」か「反対」か、「理由」か「言いかえ」かを考えよう。</span></p>
+${passage(p.tx, 'conj')}<div class="rows"></div></div>`;
+    blanks(box, p.conj.map((c, i) => ({ id: ids[i], label: `【${ids[i]}】に入る言葉`, o: c.o, w: c.w })), good => { run.first += good; done(); });
+  }
+  function stepMcq(p, box, done) {
+    box.innerHTML = `<div class="card"><h2>STEP4　選択問題にちょうせん</h2>
+<p class="inst">① まず、まちがいだと思う選択肢の <b>✕</b> をおして消そう（<b>消去法</b>）。<br>② のこった中から、<b>本文に書いてあること</b>をもとに答えを選ぼう。</p>
+${passage(p.tx, 'plain')}<div class="q">${gl(p.q.s)}</div><div id="ch"></div><div class="ev" id="ev" hidden></div></div>`;
+    choices($('ch'), p.q.o.map((x, i) => ({ t: x[0], w: x[1], ok: i === 0 })), {
+      elim: true, revealAll: true,
+      onDone: ok => { if (ok) run.first++; const ev = $('ev'); ev.hidden = false; ev.innerHTML = '📌 答えの手がかり（こんきょ）：<br>' + gl(p.q.ev); done(); }
+    });
+  }
+
+  function result() {
+    const s = STORIES[run.si], p = s.parts[run.pi], c = run.first;
+    const stars = c >= 6 ? 3 : c >= 4 ? 2 : 1;
+    const key = run.si + '-' + run.pi, old = (save[key] && save[key].stars) || 0;
+    save[key] = { stars: Math.max(old, stars) }; persist();
+    const msg = stars === 3 ? 'ほぼ完ぺき！読む力がしっかりついています。' : stars === 2 ? 'いい調子！まちがえたところを読み返すと、もっと力がつくよ。' : '最後までやりとげました！何度でもやり直して、★3つを目指そう。';
+    const hasNext = run.pi + 1 < s.parts.length;
+    $app.innerHTML = `<div class="top"><div class="ttl">${s.icon} ${s.title} <small>第${run.pi + 1}話「${p.t}」クリア</small></div></div>
+<div class="card center"><div class="big-stars">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</div>
+<p class="score">一回目で正解したのは ${c} / ${run.total} 問</p><p>${msg}</p>
+<div class="teaser">📚 ${gl(p.tz)}</div>
+${hasNext ? '<button class="btn big" id="go">つづきを読む ▶</button>' : ''}
+<button class="btn sub" id="again">もう一度この話にちょうせん</button>
+<button class="btn sub" id="hm">本だなにもどる</button></div>`;
+    if (hasNext) $('go').onclick = () => startPart(run.si, run.pi + 1);
+    $('again').onclick = () => startPart(run.si, run.pi);
+    $('hm').onclick = home;
+    petals();
+  }
+  function petals() {
+    for (let i = 0; i < 36; i++) {
+      const e = document.createElement('div'); e.className = 'petal'; e.textContent = ['🌸', '✨', '⭐'][i % 3];
+      e.style.left = Math.random() * 100 + 'vw'; e.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+      e.style.animationDelay = (Math.random() * 1.2) + 's'; e.style.fontSize = (16 + Math.random() * 16) + 'px';
+      document.body.appendChild(e); setTimeout(() => e.remove(), 7000);
+    }
+  }
+
+  // ---- ホーム／読み返し ----
+  const unlocked = (si, pi) => pi === 0 || !!save[si + '-' + (pi - 1)];
+  function home() {
+    let total = 0; Object.keys(save).forEach(k => total += save[k].stars || 0);
+    $app.innerHTML = `<div class="hero"><h1>ものがたりで国語</h1><p class="sub">名作を読んで、解いて、自信をつけよう</p>
+<p class="lead">5つの名作（要約）を、3話ずつ少しずつ読み進めます。1話ごとに <b>① 指示語 → ② 要点 → ③ 接続詞 → ④ 選択問題</b> の順に練習。小学校高学年〜中学1年生向けです。<br>下線の言葉をタップすると<b>読みと意味</b>が出ます。</p>
+<div class="total">⭐ ここまでの星：<b>${total}</b> / ${STORIES.length * 3 * 3}</div></div>
+<div class="shelf">${STORIES.map((s, si) => `<div class="book"><div class="bh"><span class="bi">${s.icon}</span><div><div class="bt">${s.title}</div><div class="ba">${s.author}　／　${s.genre}</div></div></div>
+<p class="bb">${s.blurb}</p>
+<div class="parts">${s.parts.map((p, pi) => {
+      const k = si + '-' + pi, d = save[k], ok = unlocked(si, pi);
+      return `<button class="pbtn ${d ? 'done' : ''} ${ok ? '' : 'lock'}" data-s="${si}" data-p="${pi}" ${ok ? '' : 'disabled'}><span class="pn">第${pi + 1}話</span><span class="pt">${p.t}</span><span class="pl">${LV[p.lv]}</span><span class="ps">${d ? '★'.repeat(d.stars) + '☆'.repeat(3 - d.stars) : (ok ? '▶ はじめる' : '🔒')}</span></button>`;
+    }).join('')}</div>
+${save[si + '-0'] ? `<button class="rd" data-s="${si}">📖 ここまでのお話を読みかえす</button>` : ''}</div>`).join('')}</div>
+<p class="foot">※ 物語は名作（著作権の切れた作品）を、学習用にやさしく要約したものです。</p>`;
+    document.querySelectorAll('.pbtn').forEach(b => b.onclick = () => startPart(+b.dataset.s, +b.dataset.p));
+    document.querySelectorAll('.rd').forEach(b => b.onclick = () => readView(+b.dataset.s));
+    window.scrollTo(0, 0);
+  }
+  function readView(si) {
+    const s = STORIES[si];
+    const body = s.parts.map((p, pi) => save[si + '-' + pi] ? `<h3>第${pi + 1}話「${p.t}」</h3><div class="passage">${gl(plain(p.tx))}</div>` : '').join('');
+    $app.innerHTML = `<div class="top"><button class="back" id="bk">← もどる</button><div class="ttl">${s.icon} ${s.title} <small>${s.author}</small></div></div><div class="card">${body}</div>`;
+    $('bk').onclick = home; window.scrollTo(0, 0);
+  }
+
+  // ---- 読み・意味のポップアップ ----
+  const pop = document.createElement('div'); pop.id = 'pop'; document.body.appendChild(pop);
+  document.addEventListener('click', e => {
+    const g = e.target.closest && e.target.closest('.gl');
+    if (!g) { pop.style.display = 'none'; return; }
+    pop.innerHTML = `<div class="py">${g.dataset.y}</div><div class="pw">${g.textContent}</div>${g.dataset.m ? `<div class="pm">${g.dataset.m}</div>` : ''}`;
+    pop.style.display = 'block';
+    const r = g.getBoundingClientRect();
+    pop.style.left = Math.max(8, Math.min(r.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8)) + 'px';
+    pop.style.top = (r.bottom + window.scrollY + 6) + 'px';
+  });
+
+  home();
+})();
+
+</script>
+</body>
+</html>
